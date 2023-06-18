@@ -20,7 +20,7 @@ class ColorPalette
 
 	public function enqueue_styles()
 	{
-		wp_enqueue_style('hsc-color-palette-plugin', plugin_dir_url(__FILE__) . 'assets/css/hsc-color-palette.css', '1.0.0');
+		wp_enqueue_style('hsc-color-palette-plugin', MY_PLUGIN_DIR_URL . 'assets/css/hsc-color-palette.css', '1.0.0');
 	}
 
 	public function enqueue_admin_styles()
@@ -76,17 +76,18 @@ class ColorPalette
 	public function page_init()
 	{
 		// Choose Colors
-		register_setting(
-			'hsc_color_palette_group', // Option group
-			'hsc_color_palette', // Option name
-			[$this, 'sanitize'] // Sanitize
-		);
+
 
 		add_settings_section(
 			'setting_section_id', // ID
 			'Section Title', // Title
 			[$this, 'print_section_info'], // Callback
 			'hsc_color_palette' // Page
+		);
+		register_setting(
+			'hsc_color_palette_group', // Option group
+			'hsc_color_palette', // Option name
+			[$this, 'sanitize'] // Sanitize
 		);
 
 		add_settings_field(
@@ -98,12 +99,25 @@ class ColorPalette
 		);
 
 		// Toggle Palette
+		add_settings_section(
+			'setting_section_id2', // ID
+			'Section Title 2', // Title
+			null, // Callback
+			'hsc_color_palette' // Page
+		);
+
+		// register_setting(
+		// 	'hsc_show_palette_group', // Option group
+		// 	'hsc_show_palette', // Option name
+		// 	[$this, 'sanitize_show_palette'] // Sanitize
+		// );
+
 		add_settings_field(
-			'toggle_palette', // ID
-			'Toggle Color Palette', // Title
-			[$this, 'toggle_palette_callback'], // Callback
+			'show_palette', // ID
+			'Show Color Palette', // Title
+			[$this, 'show_palette_callback'], // Callback
 			'hsc_color_palette', // Page
-			'setting_section_id' // Section
+			'setting_section_id2' // Section
 		);
 	}
 
@@ -115,10 +129,10 @@ class ColorPalette
 				$new_input['color'][] = sanitize_text_field($color);
 			}
 		}
-		$new_input['toggle_palette'] = isset($input['toggle_palette']) ? (bool) $input['toggle_palette'] : false;
+		$new_input['show_palette'] = isset($input['show_palette']) ? (bool) $input['show_palette'] : false;
+
 		return $new_input;
 	}
-
 
 	public function print_section_info()
 	{
@@ -136,19 +150,21 @@ class ColorPalette
 		}
 	}
 
-	public function toggle_palette_callback()
+
+	public function show_palette_callback()
 	{
-		$togglePalette = isset($this->options['toggle_palette']) ? $this->options['toggle_palette'] : false;
-		echo '<input type="checkbox" id="toggle_palette" name="hsc_color_palette[toggle_palette]" value="1" ' . checked(1, $togglePalette, false) . ' />';
+		$showPalette = isset($this->options['show_palette']) ? $this->options['show_palette'] : false;
+		echo '<input type="checkbox" id="show_palette" name="hsc_color_palette[show_palette]" value="1" ' . checked(1, $showPalette, false) . ' />';
 	}
 
 	public function output_palette_styles()
 	{
 		$options = get_option('hsc_color_palette');
-		if (isset($options['toggle_palette']) && $options['toggle_palette'] && isset($options['color']) && is_array($options['color'])) {
+		$showPalette = isset($options['show_palette']) ? $options['show_palette'] : false;
+		if ($showPalette && isset($options['color']) && is_array($options['color'])) {
 			echo '<style type="text/css">body {';
 			foreach ($options['color'] as $index => $color) {
-				echo "--color{$index}: {$color};";
+				echo " --color{$index}: {$color};";
 			}
 			echo '}</style>';
 		}
