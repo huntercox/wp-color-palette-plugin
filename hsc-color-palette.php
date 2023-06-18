@@ -14,9 +14,9 @@
  * Text Domain: hsc-color-palette
  */
 
-namespace hsc_color_palette;
+require_once __DIR__ . '/vendor/autoload.php';
 
+define('MY_PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
+define('MY_PLUGIN_DIR_PATH', untrailingslashit(plugin_dir_path(__FILE__)));
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
-}
+new ColorPalette\ColorPalette();
