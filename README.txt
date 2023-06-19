@@ -7,7 +7,7 @@ Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
-Create a color palette via the WP Admin and output to frontend as CSS variables on the root of every document.
+WordPress Plugin that creates a page in WP Admin for you to build a palette and add it to the frontend as CSS variables.
 
 This plugin does the following:
 
@@ -20,3 +20,20 @@ This plugin does the following:
 7. Choose to enable passing this array to the client-side DOM for usage on frontend by checking the "Add colors to root element as CSS variables." checkbox.
 8. If checked, colors are output via an inline-stylesheet to the <head> of the HTML document.
 9. CSS variables with corresponding IDs are added to the body element within the stylesheet.
+
+**Usage with SCSS**
+
+In order to use these variables with SCSS you must format the variables like this:
+
+$green: --green;
+$indigo: --indigo;
+$pink: --pink;
+$yellow: --yellow;
+$blue: --blue;
+$red: --red;
+$purple: --purple;
+
+Where --green is your color's ID and $green is the variable you'll use through your SCSS files.
+
+**ATTENTION:**
+This method does not work with certain Sass functions such as lighten(), darken() and rgba(). You cannot pass an interpolated variable through these functions.
