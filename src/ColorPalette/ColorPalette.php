@@ -177,7 +177,7 @@ class ColorPalette
 		$options = get_option('hsc_color_palette');
 		$showPalette = isset($options['show_palette']) ? $options['show_palette'] : false;
 		if ($showPalette && isset($options['color']) && is_array($options['color'])) {
-			echo '<style type="text/css">body {';
+			echo '<style type="text/css">html {';
 			foreach ($options['color'] as $index => $color) {
 				$id = isset($options['id'][$index]) ? $options['id'][$index] : $index;
 				echo " --hsc-{$id}: {$color};";
