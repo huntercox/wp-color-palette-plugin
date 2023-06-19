@@ -26,14 +26,16 @@ This plugin does the following:
 In order to use these variables with SCSS you must format the variables like this:
 
 $green: --green;
-$indigo: --indigo;
-$pink: --pink;
-$yellow: --yellow;
-$blue: --blue;
-$red: --red;
-$purple: --purple;
 
-Where --green is your color's ID and $green is the variable you'll use through your SCSS files.
+Where --green is your color's ID and $green is the variable you'll to output using var() when you need to use the function in a
 
-**ATTENTION:**
+You cannot declare the variables with a var() function around them so that you can use $green everywhere. You must decalre them as text and then use var() in each place to output the hex code. Like so:
+
+	// SCSS input
+	background-color: var($green);
+
+	// CSS ouput
+	background-color: #38d6b4;
+
+**Known Issues:**
 This method does not work with certain Sass functions such as lighten(), darken() and rgba(). You cannot pass an interpolated variable through these functions.
