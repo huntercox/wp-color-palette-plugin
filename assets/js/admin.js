@@ -21,4 +21,26 @@ jQuery(document).ready(function ($) {
 		$(this).parent().next('br').remove();
 		$(this).parent().remove();
 	});
+
+
+	// Create new div for other settings
+	let $newDiv = $('<div id="colors-toggle"></div>');
+	$newDiv.appendTo('.form .columns');
+	// Move H2 and Checkbox into the new div
+	$('#color-pickers h2:last-of-type').appendTo('#colors-toggle');
+	$('#color-pickers .form-table:last-of-type').appendTo('#colors-toggle');
+
+	// Move Submit button to the bottom of the form
+	$('.submit').appendTo('.form');
+
+
+	// Wrap each color picker and text field in a div
+	$('#color-pickers .wp-picker-container').each(function () {
+		$(this).next('input').andSelf().wrapAll('<div class="color-row"></div>');
+
+		// add a class to each wrapper based on the input's value (the color)
+		let $color = $(this).next('input').val();
+		$(this).parent().addClass('color--' + $color);
+
+	});
 });

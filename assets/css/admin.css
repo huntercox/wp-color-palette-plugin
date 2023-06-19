@@ -1,7 +1,5 @@
 .form-results {
-	display: flex;
-
-
+	width: 100%;
 
 	.results {
 		display: none;
@@ -15,11 +13,31 @@
 
 	}
 
+	.columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 20px;
+	}
+
 	#color-pickers {
-		h2 {
-			background-color: #000;
-			padding: 10px;
-			color: #fff;
+
+		.form-table th {
+			width: 80px;
+		}
+
+		.color-row {
+			display: flex;
+
+			.wp-picker-container .wp-color-result.button {
+				margin: 0 6px 0 0 !important;
+			}
+
+			.wp-picker-container+input {
+				width: 80px;
+			}
 		}
 	}
+
+	#colors-toggle {}
+
 }

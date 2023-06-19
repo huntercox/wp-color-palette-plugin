@@ -100,7 +100,7 @@ class ColorPalette
 
 		add_settings_field(
 			'color', // ID
-			'Color', // Title
+			'My Palette', // Title
 			[$this, 'color_callback'], // Callback
 			'hsc_color_palette', // Page
 			'setting_section_id' // Section
